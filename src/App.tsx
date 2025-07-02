@@ -573,7 +573,7 @@ function App() {
       <footer className="py-8 border-t border-white/10 relative">
         <div className="max-w-7xl mx-auto px-6 text-center">
           <p className="text-gray-400">
-            © 2024 <GlitchText text="Alex Johnson" className="text-cyan-400" />. 
+            © 2024 <GlitchText text="BLACK_WOLF " className="text-cyan-400" />. 
             Engineered with <span className="text-pink-400">♥</span> and quantum mechanics.
           </p>
         </div>
