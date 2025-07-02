@@ -490,25 +490,45 @@ function App() {
   </div>
 </FloatingCard>
 
-            
 <FloatingCard delay={0.4}>
   <form
     name="contact"
     method="POST"
     data-netlify="true"
+    data-netlify-honeypot="bot-field"
+    onSubmit={(e) => {
+      e.preventDefault();
+
+      const form = e.target as HTMLFormElement;
+      const data = new FormData(form);
+
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(data as any).toString(),
+      })
+        .then(() => {
+          alert("✅ Message sent successfully!");
+          form.reset();
+        })
+        .catch((error) => {
+          alert("❌ Failed to send message.");
+          console.error("Form submission error:", error);
+        });
+    }}
     className="space-y-6 p-6 bg-gradient-to-br from-white/5 to-white/10 rounded-2xl border border-white/10 backdrop-blur-sm"
   >
-    {/* Hidden input so Netlify recognizes the form */}
     <input type="hidden" name="form-name" value="contact" />
+    <input type="hidden" name="bot-field" />
 
     <div>
       <label className="block text-sm font-medium mb-2 text-cyan-400">Identity</label>
       <input
         type="text"
         name="identity"
+        required
         className="w-full px-4 py-3 bg-black/50 rounded-xl border border-gray-600 focus:border-cyan-400 focus:outline-none transition-colors text-white placeholder-gray-400"
         placeholder="Your designation"
-        required
       />
     </div>
 
@@ -517,9 +537,9 @@ function App() {
       <input
         type="email"
         name="email"
+        required
         className="w-full px-4 py-3 bg-black/50 rounded-xl border border-gray-600 focus:border-purple-400 focus:outline-none transition-colors text-white placeholder-gray-400"
         placeholder="your@email.quantum"
-        required
       />
     </div>
 
@@ -528,9 +548,9 @@ function App() {
       <textarea
         name="message"
         rows={5}
+        required
         className="w-full px-4 py-3 bg-black/50 rounded-xl border border-gray-600 focus:border-pink-400 focus:outline-none transition-colors resize-none text-white placeholder-gray-400"
         placeholder="Describe your quantum project..."
-        required
       ></textarea>
     </div>
 
@@ -543,6 +563,7 @@ function App() {
     </button>
   </form>
 </FloatingCard>
+
 
           </div>
         </div>
